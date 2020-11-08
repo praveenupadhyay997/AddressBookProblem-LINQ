@@ -106,5 +106,33 @@ namespace AddressBookProblemLINQ
                 }
             }
         }
+        /// <summary>
+        /// UC6 -- Get the count of number of contacts as per the state or city
+        /// </summary>
+        public void GetCountByCityOrState()
+        {
+            Console.WriteLine("========================CountByCity========================");
+            ///Query to get number of contact details grouped by same city name
+            var countAsPerCity = (from records in addressBookModels.AsEnumerable()
+                                                group records by records.city into Group
+                                                select new { City = Group.Key, NumberOfContacts = Group.Count() });
+            /// Iterating over the entire stored value with count and city
+            /// Displaying the reviews count
+            foreach (var record in countAsPerCity)
+            {
+                Console.WriteLine($"City : {record.City}, Number Of Contacts : {record.NumberOfContacts}");
+            }
+            Console.WriteLine("========================CountByState========================");
+            ///Query to get number of contact details grouped by same state name
+            var countAsPerState = (from records in addressBookModels.AsEnumerable()
+                                  group records by records.state into Group
+                                  select new { State = Group.Key, NumberOfContacts = Group.Count() });
+            /// Iterating over the entire stored value with count and city
+            /// Displaying the reviews count
+            foreach (var record in countAsPerState)
+            {
+                Console.WriteLine($"State : {record.State}, Number Of Contacts : {record.NumberOfContacts}");
+            }
+        }
     }
 }
