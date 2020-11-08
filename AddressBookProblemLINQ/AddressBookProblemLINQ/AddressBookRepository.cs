@@ -8,6 +8,8 @@ namespace AddressBookProblemLINQ
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Text;
     public class AddressBookRepository
     {
@@ -15,6 +17,10 @@ namespace AddressBookProblemLINQ
         /// List to store the instances of address book model or records of address book
         /// </summary>
         public static List<AddressBookModel> addressBookModels = new List<AddressBookModel>();
+        /// <summary>
+        /// Creating the instance of the Address Book Model Class
+        /// </summary>
+        public AddressBookModel bookModel = new AddressBookModel();
         /// <summary>
         /// Parameterised constructor intended to add the data to the DB Model
         /// </summary>
@@ -29,6 +35,76 @@ namespace AddressBookProblemLINQ
             addressBookModels.Add(new AddressBookModel { firstName = "Archana", secondName = "Upadhyay", address = "Sec-3", city = "Gorakhpur", state = "UP", zip = 274304, phoneNumber = 9450656235, emailId = "arhana@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
             addressBookModels.Add(new AddressBookModel { firstName = "Vijay", secondName = "Upadhyay", address = "Sec-8", city = "Chandigarh", state = "Punjab", zip = 160030, phoneNumber = 7645656235, emailId = "vijay@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
             addressBookModels.Add(new AddressBookModel { firstName = "Tia", secondName = "Sharma", address = "Sec-7", city = "Delhi", state = "Delhi", zip = 110235, phoneNumber = 9658741200, emailId = "tia@gmail.com", contactType = "Friends", addressBookName = "PraveenRecord" });
+        }
+        /// <summary>
+        /// Method to add more ocntacts later
+        /// </summary>
+        public void AddMoreContacts()
+        {
+            Console.WriteLine("Enter the First Name :");
+            bookModel.firstName = Console.ReadLine();
+            Console.WriteLine("Enter the Second Name :");
+            bookModel.secondName = Console.ReadLine();
+            Console.WriteLine("Enter the Address :");
+            bookModel.address = Console.ReadLine();
+            Console.WriteLine("Enter the City :");
+            bookModel.city = Console.ReadLine();
+            Console.WriteLine("Enter the State :");
+            bookModel.state = Console.ReadLine();
+            Console.WriteLine("Enter the Zip :");
+            bookModel.zip = Convert.ToInt64(Console.ReadLine());
+            Console.WriteLine("Enter the Phone Number :");
+            bookModel.phoneNumber = Convert.ToInt64(Console.ReadLine());
+            Console.WriteLine("Enter the email-id :");
+            bookModel.emailId = Console.ReadLine();
+            Console.WriteLine("Enter the contact type :");
+            bookModel.contactType = Console.ReadLine();
+            Console.WriteLine("Enter the address book name :");
+            bookModel.addressBookName = Console.ReadLine();
+
+            addressBookModels.Add(bookModel);
+        }
+        /// <summary>
+        /// UC5 -- Get the contact detail by the city name or state name
+        /// </summary>
+        public void GetContactUsingCityOrStateName()
+        {
+            Console.WriteLine("Enter the choice you want to retrieve data ===>");
+            Console.WriteLine("1.City.");
+            Console.WriteLine("2.State.");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the name of City or State by which you want the data -");
+            string cityOrState = Console.ReadLine();
+            if(choice == 1)
+            {
+                /// Query to implement the retrieval of the data from the address book based on city
+                var matchedRecord = from record in addressBookModels.AsEnumerable()
+                                    where record.city == cityOrState
+                                    select record;
+                /// Printing the retrieved data
+                foreach (var record in matchedRecord)
+                {
+                    Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.secondName}\n" +
+                                    $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                    $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+                    Console.WriteLine("\n \n");
+                }
+            }
+            else
+            {
+                /// Query to implement the retrieval of the data from the address book based on state
+                var matchedRecord = from record in addressBookModels.AsEnumerable()
+                                    where record.state == cityOrState
+                                    select record;
+                /// Printing the retrieved data
+                foreach (var record in matchedRecord)
+                {
+                    Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.secondName}\n" +
+                                    $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                    $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+                    Console.WriteLine("\n \n");
+                }
+            }
         }
     }
 }
