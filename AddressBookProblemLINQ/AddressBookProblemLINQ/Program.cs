@@ -7,7 +7,6 @@
 namespace AddressBookProblemLINQ
 {
     using System;
-
     class Program
     {
         static void Main(string[] args)
@@ -15,6 +14,9 @@ namespace AddressBookProblemLINQ
             Console.WriteLine("========================================================");
             Console.WriteLine("Welcome to the Address Book Data LINQ Operartion Program");
             Console.WriteLine("========================================================");
+            /// Creating the instance of the address book repository
+            /// Automatically populates the list for LINQ operation
+            AddressBookRepository bookRepository = new AddressBookRepository();
         }
     }
 }
