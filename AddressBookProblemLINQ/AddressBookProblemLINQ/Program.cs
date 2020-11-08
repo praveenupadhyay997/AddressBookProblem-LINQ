@@ -23,6 +23,8 @@ namespace AddressBookProblemLINQ
             bookRepository.GetCountByCityOrState();
             /// UC7 -- To retrieve the ordered list of contact details for a city ordered by name
             bookRepository.SortedDetailsAlphabeticallyByNameForACity();
+            /// UC8 -- To retrieve the count of the contact from the adddress book groupedby contact type in the address book
+            bookRepository.DisplayCountOfContactAsPerContactType();
         }
     }
 }

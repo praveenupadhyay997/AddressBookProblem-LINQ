@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Program.cs~RF30da9695.TMP" />
+  </ItemGroup>
+
 </Project>

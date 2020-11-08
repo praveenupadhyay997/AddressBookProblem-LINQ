@@ -157,5 +157,22 @@ namespace AddressBookProblemLINQ
             }
 
         }
+        /// <summary>
+        /// UC8 -- Display the contact count grouped by contact type for the address book
+        /// </summary>
+        public void DisplayCountOfContactAsPerContactType()
+        {
+            Console.WriteLine("========================CountByContactType========================");
+            ///Query to get number of contact details grouped by contact type
+            var countAsPerCity = (from records in addressBookModels.AsEnumerable()
+                                  group records by records.contactType into Group
+                                  select new { ContactType = Group.Key, NumberOfContacts = Group.Count() });
+            /// Iterating over the entire stored value with count and contact type
+            /// Displaying the reviews count
+            foreach (var record in countAsPerCity)
+            {
+                Console.WriteLine($"City : {record.ContactType}, Number Of Contacts : {record.NumberOfContacts}");
+            }
+        }
     }
 }
