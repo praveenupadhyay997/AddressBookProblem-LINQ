@@ -27,10 +27,10 @@ namespace AddressBookProblemLINQ
         public AddressBookRepository()
         {
             /// Inserting the data into the list using add operation
-            addressBookModels.Add(new AddressBookModel {firstName ="Raj", secondName = "Sharma", address = "Sec-1", city = "Delhi", state = "Delhi", zip = 110245, phoneNumber = 9895656235, emailId="raj@gmail.com", contactType = "Friends", addressBookName = "PraveenRecord" });
-            addressBookModels.Add(new AddressBookModel {firstName ="Divya", secondName = "Raj", address = "Sec-2", city = "Faridabad", state = "Haryana", zip = 110022, phoneNumber = 9789556235, emailId="divya@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
+            addressBookModels.Add(new AddressBookModel { firstName = "Raj", secondName = "Sharma", address = "Sec-1", city = "Delhi", state = "Delhi", zip = 110245, phoneNumber = 9895656235, emailId = "raj@gmail.com", contactType = "Friends", addressBookName = "PraveenRecord" });
+            addressBookModels.Add(new AddressBookModel { firstName = "Divya", secondName = "Raj", address = "Sec-2", city = "Faridabad", state = "Haryana", zip = 110022, phoneNumber = 9789556235, emailId = "divya@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
             addressBookModels.Add(new AddressBookModel { firstName = "Vaivaswat", secondName = "Tiwari", address = "Sec-3", city = "Kanpur", state = "UP", zip = 256123, phoneNumber = 7895656235, emailId = "vaiva@gmail.com", contactType = "Profession", addressBookName = "PraveenRecord" });
-            addressBookModels.Add(new AddressBookModel {firstName ="Shivam", secondName = "Rajput", address = "Sec-4", city = "Gorakhpur", state = "UP", zip = 274365, phoneNumber = 9963656235, emailId="shivam@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
+            addressBookModels.Add(new AddressBookModel { firstName = "Shivam", secondName = "Rajput", address = "Sec-4", city = "Gorakhpur", state = "UP", zip = 274365, phoneNumber = 9963656235, emailId = "shivam@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
             addressBookModels.Add(new AddressBookModel { firstName = "Tarun", secondName = "Arora", address = "Sec-4", city = "Delhi", state = "Delhi", zip = 116445, phoneNumber = 7206656235, emailId = "tarun@gmail.com", contactType = "Friends", addressBookName = "PraveenRecord" });
             addressBookModels.Add(new AddressBookModel { firstName = "Archana", secondName = "Upadhyay", address = "Sec-3", city = "Gorakhpur", state = "UP", zip = 274304, phoneNumber = 9450656235, emailId = "arhana@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
             addressBookModels.Add(new AddressBookModel { firstName = "Vijay", secondName = "Upadhyay", address = "Sec-8", city = "Chandigarh", state = "Punjab", zip = 160030, phoneNumber = 7645656235, emailId = "vijay@gmail.com", contactType = "Family", addressBookName = "PraveenRecord" });
@@ -75,7 +75,7 @@ namespace AddressBookProblemLINQ
             int choice = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter the name of City or State by which you want the data -");
             string cityOrState = Console.ReadLine();
-            if(choice == 1)
+            if (choice == 1)
             {
                 /// Query to implement the retrieval of the data from the address book based on city
                 var matchedRecord = from record in addressBookModels.AsEnumerable()
@@ -114,8 +114,8 @@ namespace AddressBookProblemLINQ
             Console.WriteLine("========================CountByCity========================");
             ///Query to get number of contact details grouped by same city name
             var countAsPerCity = (from records in addressBookModels.AsEnumerable()
-                                                group records by records.city into Group
-                                                select new { City = Group.Key, NumberOfContacts = Group.Count() });
+                                  group records by records.city into Group
+                                  select new { City = Group.Key, NumberOfContacts = Group.Count() });
             /// Iterating over the entire stored value with count and city
             /// Displaying the reviews count
             foreach (var record in countAsPerCity)
@@ -125,14 +125,37 @@ namespace AddressBookProblemLINQ
             Console.WriteLine("========================CountByState========================");
             ///Query to get number of contact details grouped by same state name
             var countAsPerState = (from records in addressBookModels.AsEnumerable()
-                                  group records by records.state into Group
-                                  select new { State = Group.Key, NumberOfContacts = Group.Count() });
+                                   group records by records.state into Group
+                                   select new { State = Group.Key, NumberOfContacts = Group.Count() });
             /// Iterating over the entire stored value with count and city
             /// Displaying the reviews count
             foreach (var record in countAsPerState)
             {
                 Console.WriteLine($"State : {record.State}, Number Of Contacts : {record.NumberOfContacts}");
             }
+        }
+        /// <summary>
+        /// UC7 -- Sort the data base model alphabetically by the name for a particular city
+        /// </summary>
+        public void SortedDetailsAlphabeticallyByNameForACity()
+        {
+            Console.WriteLine("Enter the name of City by which you want to sort the data alphabetically by name -");
+            string city = Console.ReadLine();
+            ///Query to get the sorted order of name for a particualr city
+            var sortByName = (from record in addressBookModels.AsEnumerable()
+                              orderby record.firstName
+                              where (record.city == city)
+                              select record);
+            /// Iterating over the entire list
+            /// Displaying the contact details
+            foreach (var record in sortByName)
+            {
+                Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.secondName}\n" +
+                                $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+                Console.WriteLine("\n \n");
+            }
+
         }
     }
 }
