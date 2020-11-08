@@ -19,6 +19,8 @@ namespace AddressBookProblemLINQ
             AddressBookRepository bookRepository = new AddressBookRepository();
             /// UC5 -- To retrieve the contact of the person in the address book from a particualr state or city
             bookRepository.GetContactUsingCityOrStateName();
+            /// UC6 -- To retrieve the count of the contact from the adddress book groupedby city or state
+            bookRepository.GetCountByCityOrState();
         }
     }
 }
