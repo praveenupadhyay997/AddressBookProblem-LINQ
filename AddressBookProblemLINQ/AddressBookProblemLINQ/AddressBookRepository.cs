@@ -174,5 +174,89 @@ namespace AddressBookProblemLINQ
                 Console.WriteLine($"City : {record.ContactType}, Number Of Contacts : {record.NumberOfContacts}");
             }
         }
+        /// <summary>
+        /// UC3 -- To Update the data stored in the DB Model
+        /// </summary>
+        public void UpdateContactUsingName()
+        {
+            /// Getting the input for the name
+            Console.WriteLine("Enter the First Name for contact you want to update :");
+            string firstName = Console.ReadLine();
+            Console.WriteLine("Enter the Second Name for contact you want to update :");
+            string secondName = Console.ReadLine();
+            /// Data variable for modification
+            string address;
+            string city;
+            string state;
+            long zip;
+            long phoneNumber;
+            string emailId;
+            string contactType;
+            string addressBookName;
+            /// LINQ to get the data matching the name
+            /// Getting the first data or default data
+            var matchedData = (from record in addressBookModels
+                               where record.firstName == firstName && record.secondName == secondName
+                               select record).FirstOrDefault();
+            Console.WriteLine("Enter the choice you want to update the data ===>");
+            Console.WriteLine("1.Address.");
+            Console.WriteLine("2.City.");
+            Console.WriteLine("3.State.");
+            Console.WriteLine("4.Zip.");
+            Console.WriteLine("5.Phone Number.");
+            Console.WriteLine("6.email-id.");
+            Console.WriteLine("7.contact type.");
+            Console.WriteLine("8.address book name.");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            /// Matching the case to update the record
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Enter the Address :");
+                    address = Console.ReadLine();
+                    matchedData.address = address;
+                    break;
+                case 2:
+                    Console.WriteLine("Enter the City :");
+                    city = Console.ReadLine();
+                    matchedData.city = city;
+                    break;
+                case 3:
+                    Console.WriteLine("Enter the State :");
+                    state = Console.ReadLine();
+                    matchedData.state = state;
+                    break;
+                case 4:
+                    Console.WriteLine("Enter the Zip :");
+                    zip = Convert.ToInt64(Console.ReadLine());
+                    matchedData.zip = zip;
+                    break;
+                case 5:
+                    Console.WriteLine("Enter the Phone Number :");
+                    phoneNumber = Convert.ToInt64(Console.ReadLine());
+                    matchedData.phoneNumber = phoneNumber;
+                    break;
+                case 6:
+                    Console.WriteLine("Enter the email-id :");
+                    emailId = Console.ReadLine();
+                    matchedData.emailId = emailId;
+                    break;
+                case 7:
+                    Console.WriteLine("Enter the contact type :");
+                    contactType = Console.ReadLine();
+                    matchedData.contactType = contactType;
+                    break;
+                case 8:
+                    Console.WriteLine("Enter the address book name :");
+                    addressBookName = Console.ReadLine();
+                    matchedData.addressBookName = addressBookName;
+                    break;
+            }
+            /// Printing the updated records
+            Console.WriteLine($"First Name:{matchedData.firstName}\nSecond Name:{matchedData.secondName}\n" +
+                                    $"Address:{matchedData.address}, City:{matchedData.city}, State:{matchedData.state} PinCode: {matchedData.zip}\n" +
+                                    $"Phone Number: {matchedData.phoneNumber}\nContact Type: {matchedData.contactType}\nAddress Book Name : {matchedData.addressBookName}");
+            Console.WriteLine("\n \n");
+        }
     }
 }
